@@ -4,14 +4,12 @@ import json
 
 from pathlib import Path, os
 
-path = Path(Path.cwd(), 'Data')
-# csv files are named as 'year-orgs.csv'
 
-starting_yr = 2018
-ending_yr = 2021
 
 
 def search_by_year(year):
+    path = Path(Path.cwd(), 'Data')
+    # csv files are named as 'year-orgs.csv'
     filename = str(year)+'-orgs.csv'
     if os.path.exists(Path(path, filename)):
         print("File exist")
@@ -38,7 +36,11 @@ def search_by_tech(tech):
 
 def loop_thru_files():
     existing_files = []
+    path = Path(Path.cwd(), 'Data')
+    # csv files are named as 'year-orgs.csv'
 
+    starting_yr = 2018
+    ending_yr = 2021
     for year in range(starting_yr, ending_yr+1):
         filename = str(year)+'-orgs.csv'
         file_path = Path(path, filename)
@@ -50,6 +52,9 @@ def loop_thru_files():
 
 
 def master_fn():
+    
+
+    
     choice = input("By Tech - (1) \nby year - (2)\n")
 
     if choice == '1':
@@ -58,7 +63,7 @@ def master_fn():
         tech_json = ''
 
         for tech in tech_list:
-            tech_json+=(search_by_tech(tech))
+            tech_json+=(search_by_tech(tech.lower()))
 
         fin_str =  (tech_json.replace("][", ","))
         return(json.loads(fin_str))
