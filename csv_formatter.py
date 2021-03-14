@@ -29,7 +29,7 @@ def csv_to_json(csvFilePath):
     return(jsonArray)
 
 
-def save_excel(df, tech):
+def get_csv_path(df, tech):
     final_file_path = Path(Path.cwd(), f"GSoC_org_list_{tech}.csv")
     df.to_csv(final_file_path, index=False)
     print(f"CSV file saved at {final_file_path}")
@@ -40,8 +40,9 @@ def search_by_year(year):
     filename = str(year)+'-orgs.csv'
     if os.path.exists(Path(path, filename)):
         print("File exist")
+        return(csv_to_json(Path(path, filename)))
     else:
-        print("404")
+        return("404")
 
 
 def search_by_tech(tech):
@@ -54,7 +55,7 @@ def search_by_tech(tech):
         row_df = df[df['Technologies'].str.contains(tech, regex=False)]
         techwise_df = techwise_df.append(row_df)
 
-    final_file_path = save_excel(techwise_df, tech)
+    final_file_path = get_csv_path(techwise_df, tech)
     return(csv_to_json(final_file_path))
     # function to return the jsonArray
 
@@ -74,12 +75,18 @@ def loop_thru_files():
 
 
 def master_fn():
-    tech = input("Enter the tech: ")
-    return (search_by_tech(tech))
+    choice = input("By Tech - (1) \nby year - (2)\n")
+
+    if choice=='1':    
+        tech = input("Enter the tech: ")
+        return (search_by_tech(tech))
+    elif choice=='2':
+        year = input("Enter the year: ")
+        return (search_by_year(year))
 
 
-master_fn()
-#print(master_fn())
+#master_fn()
+print(master_fn())
 
 
 # "D:\amFOSS\hack2.0\Data\2018-orgs.csv"
