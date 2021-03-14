@@ -55,21 +55,22 @@ def master_fn():
     if choice == '1':
         tech_list = input("Enter the tech array: ")
         tech_list = tech_list.split(" ")
-        tech_json = []
+        tech_json = ''
 
         for tech in tech_list:
-            tech_json.append(search_by_tech(tech))
+            tech_json+=(search_by_tech(tech))
 
-        return (tech_json)
+        fin_str =  (tech_json.replace("][", ","))
+        return(json.loads(fin_str))
+
+
     elif choice == '2':
         year = input("Enter the year: ")
         return (search_by_year(year))
 
 
-master_fn()
+#master_fn()
+print(master_fn())
 
-# print(master_fn())
-
-# "D:\amFOSS\hack2.0\Data\2018-orgs.csv"
 
 # output - returns a JSONArray
