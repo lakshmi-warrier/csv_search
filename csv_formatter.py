@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 # version - 1.2.3
 
 from pathlib import Path, os
@@ -52,15 +53,22 @@ def master_fn():
     choice = input("By Tech - (1) \nby year - (2)\n")
 
     if choice == '1':
-        tech = input("Enter the tech: ")
-        return (search_by_tech(tech))
+        tech_list = input("Enter the tech array: ")
+        tech_list = tech_list.split(" ")
+        tech_json = []
+
+        for tech in tech_list:
+            tech_json.append(search_by_tech(tech))
+
+        return (tech_json)
     elif choice == '2':
         year = input("Enter the year: ")
         return (search_by_year(year))
 
 
-# master_fn()
-print(master_fn())
+master_fn()
+
+# print(master_fn())
 
 # "D:\amFOSS\hack2.0\Data\2018-orgs.csv"
 
